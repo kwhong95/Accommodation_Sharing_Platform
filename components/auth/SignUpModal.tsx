@@ -7,11 +7,13 @@ import {
   AiOutlineEye,
 } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
+import { useDispatch } from "react-redux";
 
 import { Input, Selector, Button } from "../common";
 import palette from "../../styles/palette";
 import { monthList, dayList, yearList } from "../../lib/staticData";
 import { signupAPI } from "../../lib/api/auth";
+import { userActions } from "../../store/user";
 
 const Container = styled.form`
   width: 568px;
@@ -102,6 +104,8 @@ export const SignUpModal: React.FC = () => {
   const [birthDay, setBirthDay] = useState<string | undefined>();
   const [birthMonth, setBirthMonth] = useState<string | undefined>();
 
+  const dispatch = useDispatch();
+
   const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
@@ -149,7 +153,9 @@ export const SignUpModal: React.FC = () => {
         ).toISOString(),
       };
 
-      await signupAPI(signUpBody);
+      const { data } = await signupAPI(signUpBody);
+
+      dispatch(userActions.setLoggedUser(data));
     } catch (e) {
       console.log(e);
     }
@@ -232,7 +238,7 @@ export const SignUpModal: React.FC = () => {
         </div>
       </div>
       <div className="sign-up-modal-submit-button-wrapper">
-        <Button type="submit">가입하기</Button>
+        <Button type="submit">가입 하기</Button>
       </div>
     </Container>
   );

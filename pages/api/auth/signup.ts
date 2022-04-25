@@ -74,5 +74,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.send(newUser);
   }
   res.statusCode = 405;
+
   return res.end();
 };

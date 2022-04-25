@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "email": "kwhong95@kakao.com",
+    "firstname": "홍",
+    "lastname": "경원",
+    "password": "$2a$08$YDXWGWtoPPaIs0f0TWOyC.Zy.Z0ABgCIm0QG19Cd/WM6nFRTfPaR.",
+    "birthday": "1995-09-21T15:00:00.000Z",
+    "profileImage": "/static/image/user/default_user_profile_image.jpg"
+  }
+]
