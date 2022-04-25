@@ -11,8 +11,9 @@ import { BsPerson } from "react-icons/bs";
 import { Input, Selector, Button } from "../common";
 import palette from "../../styles/palette";
 import { monthList, dayList, yearList } from "../../lib/staticData";
+import { signupAPI } from "../../lib/api/auth";
 
-const Container = styled.div`
+const Container = styled.form`
   width: 568px;
   padding: 32px;
   background-color: white;
@@ -133,8 +134,29 @@ export const SignUpModal: React.FC = () => {
     setBirthYear(event.target.value);
   };
 
+  //* 회원가입 폼 제출하기
+  const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const signUpBody = {
+        email,
+        lastname,
+        firstname,
+        password,
+        birthday: new Date(
+          `${birthYear}-${birthMonth!.replace("월", "")}-${birthDay}`
+        ).toISOString(),
+      };
+
+      await signupAPI(signUpBody);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
-    <Container>
+    <Container onSubmit={onSubmitSignUp}>
       <AiOutlineClose className="modal-close-x-icon" />
       <div className="input-wrapper">
         <Input
