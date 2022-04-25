@@ -3,11 +3,13 @@ import {
   AiOutlineClose,
   AiOutlineMail,
   AiOutlineEyeInvisible,
+  AiOutlineEye,
 } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 
 import { Input } from "../common";
 import palette from "../../styles/palette";
+import { useState } from "react";
 
 const Container = styled.div`
   width: 568px;
@@ -44,9 +46,41 @@ const Container = styled.div`
       top: 16px;
     }
   }
+
+  .sign-up-password-input-wrapper {
+    svg {
+      cursor: pointer;
+    }
+  }
 `;
 
 export const SignUpModal: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [password, setPassword] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
+
+  const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const onChangeLastname = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLastname(event.target.value);
+  };
+
+  const onChangeFirstname = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFirstname(event.target.value);
+  };
+
+  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const toggleHidePassword = () => {
+    setHidePassword(!hidePassword);
+  };
+
   return (
     <Container>
       <AiOutlineClose className="modal-close-x-icon" />
@@ -56,19 +90,39 @@ export const SignUpModal: React.FC = () => {
           type="email"
           name="email"
           icon={<AiOutlineMail />}
+          value={email}
+          onChange={onChangeEmail}
         />
       </div>
       <div className="input-wrapper">
-        <Input placeholder="이름(예:길동)" icon={<BsPerson />} />
-      </div>
-      <div className="input-wrapper">
-        <Input placeholder="성(예: 홍)" icon={<BsPerson />} />
+        <Input
+          placeholder="이름(예:길동)"
+          icon={<BsPerson />}
+          value={lastname}
+          onChange={onChangeLastname}
+        />
       </div>
       <div className="input-wrapper">
         <Input
+          placeholder="성(예: 홍)"
+          icon={<BsPerson />}
+          value={firstname}
+          onChange={onChangeFirstname}
+        />
+      </div>
+      <div className="input-wrapper sign-up-password-input-wrapper">
+        <Input
           placeholder="비밀번호 설정하기"
-          type="password"
-          icon={<AiOutlineEyeInvisible />}
+          type={hidePassword ? "password" : "text"}
+          icon={
+            hidePassword ? (
+              <AiOutlineEyeInvisible onClick={toggleHidePassword} />
+            ) : (
+              <AiOutlineEye onClick={toggleHidePassword} />
+            )
+          }
+          value={password}
+          onChange={onChangePassword}
         />
       </div>
     </Container>
