@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import {
   AiOutlineClose,
@@ -7,9 +8,9 @@ import {
 } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 
-import { Input } from "../common";
+import { Input, Selector } from "../common";
 import palette from "../../styles/palette";
-import { useState } from "react";
+import { monthList } from "../../lib/staticData";
 
 const Container = styled.div`
   width: 568px;
@@ -51,6 +52,18 @@ const Container = styled.div`
     svg {
       cursor: pointer;
     }
+  }
+
+  .sign-up-birthday-label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  .sign-up-modal-birthday-info {
+    margin-bottom: 16px;
+    color: ${palette.charcoal};
   }
 `;
 
@@ -125,6 +138,16 @@ export const SignUpModal: React.FC = () => {
           onChange={onChangePassword}
         />
       </div>
+      <p className="sign-up-birthday-label">생일</p>
+      <p className="sign-up-modal-birthday-info">
+        만 18세 이상의 성인 회원으로 가입할 수 있습니다. 생일은 다른 이용자에게
+        공개되지 않습니다.
+      </p>
+      <Selector
+        options={monthList}
+        disabledOptions={["월"]}
+        defaultValue="월"
+      />
     </Container>
   );
 };
