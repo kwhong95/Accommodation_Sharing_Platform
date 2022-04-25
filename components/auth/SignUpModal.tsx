@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 
-import { Input, Selector } from "../common";
+import { Input, Selector, Button } from "../common";
 import palette from "../../styles/palette";
 import { monthList, dayList, yearList } from "../../lib/staticData";
 
@@ -81,6 +81,12 @@ const Container = styled.div`
     .sign-up-modal-birthday-year-selector {
       width: 33.3333%;
     }
+  }
+
+  .sign-up-modal-submit-button-wrapper {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid ${palette.gray_eb};
   }
 `;
 
@@ -202,6 +208,9 @@ export const SignUpModal: React.FC = () => {
             onChange={onChangeBirthYear}
           />
         </div>
+      </div>
+      <div className="sign-up-modal-submit-button-wrapper">
+        <Button type="submit">가입하기</Button>
       </div>
     </Container>
   );
